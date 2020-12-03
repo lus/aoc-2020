@@ -36,17 +36,15 @@ func main() {
 
 // getTreesInSlope returns the amount of trees with the given slope
 func getTreesInSlope(rows []string, right, down int) int {
-	next := 0
-	step := 0
 	trees := 0
 	for current, row := range rows {
 		// Check if this is the next step
-		if current != next {
+		if (current + 1) % down != 0 {
 			continue
 		}
 
 		// Define the string index to use
-		index := step * right
+		index := current / down * right
 		for index >= len(row) {
 			index -= len(row)
 		}
@@ -55,10 +53,6 @@ func getTreesInSlope(rows []string, right, down int) int {
 		if string(row[index]) == "#" {
 			trees++
 		}
-
-		// Set the next step to execute and increase the step index
-		step++
-		next += down
 	}
 	return trees
 }
